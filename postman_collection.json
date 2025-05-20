@@ -1,0 +1,241 @@
+{
+  "info": {
+    "_postman_id": "YOUR_COLLECTION_ID",
+    "name": "Bulk Action Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "API for the Bulk Action Platform"
+  },
+  "item": [
+    {
+      "name": "Create Bulk Action (Contact Update)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/path/to/your/data/sample_contacts.csv"
+            },
+            {
+              "key": "accountId",
+              "value": "acc_12345_test",
+              "type": "text"
+            },
+            {
+              "key": "entityType",
+              "value": "Contact",
+              "type": "text"
+            },
+            {
+              "key": "actionType",
+              "value": "BULK_UPDATE",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/bulk-actions",
+          "host": ["{{baseUrl}}"],
+          "path": ["bulk-actions"]
+        },
+        "description": "Upload a CSV to update Contact entities.\nRequired form fields:\n- `file`: The CSV file.\n- `accountId`: Your account ID.\n- `entityType`: e.g., \"Contact\".\nOptional:\n- `actionType`: Defaults to \"BULK_UPDATE\".\n- `scheduledAt`: ISO 8601 string for future execution."
+      },
+      "response": []
+    },
+    {
+      "name": "Create Scheduled Bulk Action",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "file",
+              "type": "file",
+              "src": "/path/to/your/data/sample_contacts.csv"
+            },
+            {
+              "key": "accountId",
+              "value": "acc_schedule_test",
+              "type": "text"
+            },
+            {
+              "key": "entityType",
+              "value": "Contact",
+              "type": "text"
+            },
+            {
+              "key": "scheduledAt",
+              "value": "2025-10-22T14:30:00Z",
+              "type": "text"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{baseUrl}}/bulk-actions",
+          "host": ["{{baseUrl}}"],
+          "path": ["bulk-actions"]
+        },
+        "description": "Schedule a bulk update action for future execution."
+      },
+      "response": []
+    },
+    {
+      "name": "List Bulk Actions",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/bulk-actions?page=1&limit=10&status=PENDING&accountId=acc_12345_test",
+          "host": ["{{baseUrl}}"],
+          "path": ["bulk-actions"],
+          "query": [
+            {
+              "key": "page",
+              "value": "1",
+              "disabled": true
+            },
+            {
+              "key": "limit",
+              "value": "10",
+              "disabled": true
+            },
+            {
+              "key": "status",
+              "value": "PENDING",
+              "description": "Filter by status (PENDING, PROCESSING, COMPLETED, FAILED, SCHEDULED)",
+              "disabled": true
+            },
+            {
+              "key": "accountId",
+              "value": "acc_12345_test",
+              "description": "Filter by account ID",
+              "disabled": true
+            },
+            {
+              "key": "entityType",
+              "value": "Contact",
+              "description": "Filter by entity type",
+              "disabled": true
+            }
+          ]
+        },
+        "description": "Lists all bulk actions with optional filters and pagination."
+      },
+      "response": []
+    },
+    {
+      "name": "Get Bulk Action Details",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/bulk-actions/:actionId",
+          "host": ["{{baseUrl}}"],
+          "path": ["bulk-actions", ":actionId"],
+          "variable": [
+            {
+              "key": "actionId",
+              "value": "YOUR_ACTION_ID",
+              "description": "The ID of the bulk action to retrieve."
+            }
+          ]
+        },
+        "description": "Retrieves details and current status of a specific bulk action."
+      },
+      "response": []
+    },
+    {
+      "name": "Get Bulk Action Statistics",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/bulk-actions/:actionId/stats",
+          "host": ["{{baseUrl}}"],
+          "path": ["bulk-actions", ":actionId", "stats"],
+          "variable": [
+            {
+              "key": "actionId",
+              "value": "YOUR_ACTION_ID",
+              "description": "The ID of the bulk action for which to retrieve stats."
+            }
+          ]
+        },
+        "description": "Retrieves a summary of the bulk action, including success, failure, and skipped counts."
+      },
+      "response": []
+    },
+    {
+      "name": "Get Bulk Action Logs (PushJobs)",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/bulk-actions/:actionId/logs?status=FAILED&page=1&limit=20",
+          "host": ["{{baseUrl}}"],
+          "path": ["bulk-actions", ":actionId", "logs"],
+          "query": [
+            {
+              "key": "status",
+              "value": "FAILED",
+              "description": "Filter logs by status (e.g., READY, PROCESSING, SUCCESS, FAILED, SKIPPED)",
+              "disabled": true
+            },
+            {
+              "key": "page",
+              "value": "1",
+              "disabled": true
+            },
+            {
+              "key": "limit",
+              "value": "20",
+              "disabled": true
+            },
+            {
+              "key": "entityId",
+              "value": "csv_entity_id_example",
+              "description": "Filter by original entity ID from CSV",
+              "disabled": true
+            }
+          ],
+          "variable": [
+            {
+              "key": "actionId",
+              "value": "YOUR_ACTION_ID"
+            }
+          ]
+        },
+        "description": "Fetch and filter logs (PushJob details) for a specific bulk action via the API."
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [""]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000",
+      "type": "default"
+    }
+  ]
+}

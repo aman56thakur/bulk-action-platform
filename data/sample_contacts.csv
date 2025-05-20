@@ -1,0 +1,7 @@
+id,name,email,status,age,city
+1,John Doe,john.doe@example.com,active,30,New York
+2,Jane Smith,jane.smith@example.com,inactive,25,London
+3,Alice Johnson,alice.johnson@example.com,active,35,Paris
+4,Robert Brown,robert.brown@example.com,pending,40,Berlin
+5,John Doe,john.doe@example.com,active,31,New York DUP
+6,Emily Davis,emily.davis@example.com,active,28,Tokyo
