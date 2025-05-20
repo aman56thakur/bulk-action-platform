@@ -2,6 +2,9 @@
 
 This project implements a highly scalable and efficient bulk action platform capable of performing various bulk actions on CRM entities. It is designed to be flexible, allowing for easy addition of new bulk actions. The system can handle large volumes of data with high performance, extensibility, and robust error handling.
 
+**Demo Video:** [https://www.loom.com/share/40de7c6882ea421ebb7b09cff30d533c](https://www.loom.com/share/40de7c6882ea421ebb7b09cff30d533c)
+
+
 ## Features
 
 - **Bulk Update Action**: Allows updating multiple fields for CRM entities (initially 'Contact') via CSV upload.
